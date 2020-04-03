@@ -1,0 +1,36 @@
+create table movieNames(movieName varchar(30) not null primary key, releaseDate Date not null, isSequel boolean not null, distribution integer not null)ENGINE = MyISAM
+
+create table tweets(ts timestamp not null, tweet varchar(200) not null, userScreenName varchar(20) not null, polarity integer(2) not null, moviename varchar(30) not null, country varchar(30), foreign key(moviename) references movienames(moviename))ENGINE = MyISAM
+
+create table actorslist(name varchar(30) primary key, twitterhandle varchar(20), followercount integer(10))ENGINE=MyISAM
+
+create table movieactorassoc(moviename varchar(30), actorname varchar(30), constraint foreign key(actorname) references actorslist(name), constraint foreign key(moviename) references movienames(moviename))ENGINE = MyISAM
+
+create table category(moviename varchar(30) not null, action boolean not null, animation boolean not null, thriller boolean not null, romance boolean not null, comedy boolean not null, constraint foreign key(moviename) references movienames(moviename))ENGINE=MyISAM
+
+create table regression(a double, p double, d double, c double, e double, s double, u double)ENGINE=MyISAM
+
+create table userDB(userScreenName varchar(20) primary key, followercount integer(10) not null)ENGINE=MyISAM
+
+
+select * from movienames;
+select * from tweets;
+select * from category;
+select * from actorslist;
+select * from movieactorassoc;
+
+drop table movienames;
+drop table tweets;
+drop table movieactorassoc;
+drop table actorslist;
+drop table category;
+
+
+select moviename, count(*) as T from tweets group by(moviename) order by T desc;
+select t.userscreenname, u.followercount from tweets t, userdb u where t.moviename='X' and t.ts between 'Y' and 'Z' and t.userscreenname=u.userscreenname
+
+
+select sum(u.followercount) from tweets t, userdb u where moviename='shamitabh' and ts between '2015-02-05 15:22:00' and '2015-02-05 16:22:00' and t.userscreenname=u.userscreenname;
+
+
+C:\xampp\mysql\bin\mysql -u root
